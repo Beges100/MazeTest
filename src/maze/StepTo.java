@@ -1,33 +1,67 @@
 package maze;
 
-public class StepTo {
-    public String[][] maze;
-    int entry;
-    public String wall = "\u2588\u2588 ";
-    public String pass = "   ";
+import java.util.Random;
 
-    public StepTo(String[][] maze, int entry) {
-        this.maze = new String[10][10];
+public class StepTo {
+    public int entry;
+    String pass = "   ";
+
+    public StepTo(int entry) {
         this.entry = entry;
     }
 
     public void setEntry() {
-        Maze.maze[entry][0] = pass;
+        Maze.maze[entry][Maze.stepHorizontal] = pass;
+        Maze.stepVertical = entry;
+        Maze.stepHorizontal++;
+        Maze.maze[Maze.stepVertical][Maze.stepHorizontal] = pass;
+        Maze.stepHorizontal++;
+    }
+
+    public void toMove() {
+        Random randomStep = new Random();
+         do {
+            switch (randomStep.nextInt(4)) {
+                case 0 -> stepForward();
+                case 1 -> stepBack();
+                case 2 -> stepUp();
+                case 3 -> stepDown();
+                default -> {
+                }
+            }
+        } while (Maze.stepHorizontal < 9);
     }
 
     public void stepUp() {
+        if (Maze.stepVertical > 1) {
+            Maze.stepVertical--;
+            Maze.maze[Maze.stepVertical][Maze.stepHorizontal] = pass;
+        }
 
     }
 
     public void stepDown() {
+        if (Maze.stepVertical < 9) {
+            Maze.stepVertical++;
+            Maze.maze[Maze.stepVertical][Maze.stepHorizontal] = pass;
+        }
+    }
+
+    public void stepBack() {
+        if (Maze.stepHorizontal > 1) {
+            Maze.stepHorizontal--;
+            Maze.maze[Maze.stepVertical][Maze.stepHorizontal] = pass;
+        }
 
     }
 
-    public void stepLeft() {
+    public void stepForward() {
+        if (Maze.stepHorizontal < 9) {
+            Maze.stepHorizontal++;
+            Maze.maze[Maze.stepVertical][Maze.stepHorizontal] = pass;
+        }
 
     }
 
-    public void stepRight() {
 
-    }
 }

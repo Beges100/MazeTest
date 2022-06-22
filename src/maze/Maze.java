@@ -4,17 +4,15 @@ import java.util.Random;
 
 public class Maze {
     public static String[][] maze;
-    public static String wall = "\u2588\u2588 ";
-    public static String pass = "   ";
-    int countStep = 0;
-    public static int step = 0;
-    int entryCoordinates = entry();
+    String wall = "\u2588\u2588 ";
+    public static int stepHorizontal = 0;
+    public static int stepVertical = 0;
 
-    StepTo stepTo = new StepTo(maze, entryCoordinates);
+    StepTo stepTo = new StepTo(entry());
 
     //???????????
     public Maze(int size) {
-        this.maze = new String[size][size];
+        maze = new String[size][size];
     }
 
     //????????? ??????????
@@ -33,14 +31,16 @@ public class Maze {
             }
         }
         stepTo.setEntry();
+        stepTo.toMove();
+        showMaze();
     }
 
     // ????? ????
     public void showMaze() {
-        for (int i = 0; i < maze.length; i++) {
+        for (String[] strings : maze) {
             System.out.println();
             for (int j = 0; j < maze.length; j++) {
-                System.out.print(maze[i][j]);
+                System.out.print(strings[j]);
             }
         }
     }
